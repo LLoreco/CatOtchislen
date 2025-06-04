@@ -6,14 +6,13 @@ using UnityEngine.UI;
 
 public class DamageController : PlayerInfo
 {
-    private GameObject[] _hearts;
+    [SerializeField] private GameObject[] _hearts;
     [SerializeField] private Sprite _grayHeartSprite;
     [SerializeField] private GameObject _gameOverScreen;
     private SpriteRenderer _spriteRenderer;
     private void Start()
     {
         Health = 3;
-        _hearts = GameObject.FindGameObjectsWithTag("Heart");
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void TakeDamage()
@@ -31,10 +30,18 @@ public class DamageController : PlayerInfo
     }
     private void Die()
     {
+        GetComponent<PlayerSoundManager>().PlayOverSound();
         GetComponent<PlayerController>().PlayDeathAnimation();
         StartCoroutine(CdBeforeRestart());
     }
     private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("KillBox"))
+        {
+            Die();
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {

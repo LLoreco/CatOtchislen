@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private bool _isGameOver;
+    public bool isPlatformer = true;
     public bool IsGameOver
     {
         get {  return _isGameOver; }

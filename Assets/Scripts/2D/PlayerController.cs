@@ -44,22 +44,20 @@ public class PlayerController : PlayerInfo
         if (_rb.velocity.y > 0 && !_isJumped)
         {
             _isJumped = true;
-            PlayJumpAnimation();
             _isFalling = false;
-            PlayFallAnimation();
         }
         else if (_rb.velocity.y < 0 && !_isFalling)
         {
             _isJumped = false;
             _isFalling = true;
-            PlayJumpAnimation();
-            PlayFallAnimation();
         }
         if (IsGrounded)
         {
             _isFalling = false;
-            PlayFallAnimation();
+            _isJumped = false;
         }
+        PlayFallAnimation();
+        PlayJumpAnimation();
     }
 
     private void Move()
@@ -97,8 +95,6 @@ public class PlayerController : PlayerInfo
     {
         if (collision.gameObject.CompareTag("ground"))
         {
-            _isFalling = false;
-            PlayFallAnimation();
             IsGrounded = true;
         }
     }

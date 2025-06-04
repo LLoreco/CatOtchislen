@@ -14,6 +14,8 @@ TagManager:
   - Cup
   - Mouse
   - Fridge
+  - Flag
+  - KillBox
   layers:
   - Default
   - TransparentFX
