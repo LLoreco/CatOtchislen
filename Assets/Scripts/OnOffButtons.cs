@@ -10,8 +10,10 @@ public class OnOffButtons : MonoBehaviour
     [SerializeField] private List<GameObject> otherSprites = new List<GameObject>();
     [SerializeField] public List<GameObject> enabledClicks = new List<GameObject>();
     [SerializeField] private Sprite clickedSprite;
+    [SerializeField] private GameObject _object;
     public void DisableClicks()
     {
+        _object.GetComponent<CollectableItem>().ObjectFound();
         Init();
         DisableParentObject();
         DisableChildrens();
@@ -32,7 +34,7 @@ public class OnOffButtons : MonoBehaviour
             }
         }
     }
-    private void DisableParentObject()
+    public void DisableParentObject()
     {
         itemSprites.GetComponent<Button>().enabled = false;
         itemSprites.GetComponent<Animator>().enabled = false;
@@ -44,10 +46,10 @@ public class OnOffButtons : MonoBehaviour
     }
     private void Init()
     {
-        foreach(string anotherTag in anotherTags)
+        foreach (string anotherTag in anotherTags)
         {
             GameObject[] items = GameObject.FindGameObjectsWithTag(anotherTag);
-            foreach(GameObject item in items)
+            foreach (GameObject item in items)
             {
                 otherSprites.Add(item);
             }

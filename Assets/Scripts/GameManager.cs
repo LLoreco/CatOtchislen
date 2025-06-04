@@ -11,4 +11,12 @@ public class GameManager : MonoBehaviour
         get {  return _isGameOver; }
         set { _isGameOver = value; }
     }
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.RightAlt))
+        {
+            PlayerPrefs.DeleteKey("FoundObjects");
+            PlayerPrefs.Save();
+        }
+    }
 }
