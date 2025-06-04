@@ -16,6 +16,7 @@ TagManager:
   - Fridge
   - Flag
   - KillBox
+  - Coin
   layers:
   - Default
   - TransparentFX
