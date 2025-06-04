@@ -11,6 +11,9 @@ TagManager:
   - Heart
   - Enemy
   - GameManager
+  - Cup
+  - Mouse
+  - Fridge
   layers:
   - Default
   - TransparentFX
