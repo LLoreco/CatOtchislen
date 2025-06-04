@@ -5,9 +5,12 @@ using UnityEngine;
 public class PlayerController : PlayerInfo
 {
     private float _horizontal;
+    private bool _isFalling;
+    private bool _isJumped;
     private Rigidbody2D _rb;
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
+    private GameManager _gameManager;
     void Start()
     {
         Speed = 5;
@@ -16,12 +19,47 @@ public class PlayerController : PlayerInfo
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _isFalling = false;
+        _isJumped = false;
+        _gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        IsAttacking = false;
     }
 
     void Update()
     {
-        Move();
-        Jump();
+        if (!_gameManager.IsGameOver)
+        {
+            Move();
+            Jump();
+            PlayFallAndJumpAnimation();
+            if (Input.GetMouseButtonDown(0) && !IsAttacking)
+            {
+                Attack();
+            }
+        }
+    }
+
+    private void PlayFallAndJumpAnimation()
+    {
+        if (_rb.velocity.y > 0 && !_isJumped)
+        {
+            _isJumped = true;
+            PlayJumpAnimation();
+            _isFalling = false;
+            PlayFallAnimation();
+        }
+        else if (_rb.velocity.y < 0 && !_isFalling)
+        {
+            _isJumped = false;
+            _isFalling = true;
+            PlayJumpAnimation();
+            PlayFallAnimation();
+        }
+        if (IsGrounded)
+        {
+            _isFalling = false;
+            PlayFallAnimation();
+        }
     }
 
     private void Move()
@@ -45,22 +83,12 @@ public class PlayerController : PlayerInfo
         _spriteRenderer.flipX = IsFlipped;
     }
 
-    private void PlayMovementAnimation()
-    {
-        if (_horizontal > 0 || _horizontal < 0)
-        {
-            _animator.SetBool("isRunning", true);
-        }
-        else
-        {
-            _animator.SetBool("isRunning", false);
-        }
-    }
-
     private void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
+            _isJumped = true;
+            PlayJumpAnimation();
             _rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
             IsGrounded = false;
         }
@@ -69,7 +97,43 @@ public class PlayerController : PlayerInfo
     {
         if (collision.gameObject.CompareTag("ground"))
         {
+            _isFalling = false;
+            PlayFallAnimation();
             IsGrounded = true;
         }
+    }
+    private void PlayMovementAnimation()
+    {
+        if (!_isJumped)
+        {
+            if (_horizontal > 0 || _horizontal < 0)
+            {
+                _animator.SetBool("isRunning", true);
+            }
+            else
+            {
+                _animator.SetBool("isRunning", false);
+            }
+        }
+    }
+    public bool Attack()
+    {
+        IsAttacking = true;
+        PlayAttackAnimation();
+        StartCoroutine(AttackCD());
+        return IsAttacking;
+    }
+    private void PlayJumpAnimation() => _animator.SetBool("isJump", _isJumped);
+    private void PlayFallAnimation() => _animator.SetBool("isFalling", _isFalling);
+    public void PlayDeathAnimation() 
+    { 
+        _animator.SetBool("isDead", true);
+        _gameManager.IsGameOver = true;
+    }
+    private void PlayAttackAnimation() => _animator.SetTrigger("isAttack");
+    public IEnumerator AttackCD()
+    {
+        yield return new WaitForSeconds(1);
+        IsAttacking = false;
     }
 }

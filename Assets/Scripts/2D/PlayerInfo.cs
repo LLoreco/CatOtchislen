@@ -8,6 +8,8 @@ public class PlayerInfo : MonoBehaviour
     private float _jumpForce;
     private bool _isGrounded;
     private bool _isFlipped;
+    private int _health;
+    private bool _isAttacking;
     public float Speed
     {
         get { return _speed; }
@@ -27,5 +29,15 @@ public class PlayerInfo : MonoBehaviour
     {
         get { return _isFlipped; }
         set { _isFlipped = value; }
+    }
+    public int Health
+    {
+        get { return _health; }
+        set { _health = value; }
+    }
+    public bool IsAttacking
+    {
+        get { return _isAttacking; }
+        set { _isAttacking = value; }
     }
 }

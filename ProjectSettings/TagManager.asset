@@ -8,6 +8,9 @@ TagManager:
   - Exam
   - Konspekt
   - ground
+  - Heart
+  - Enemy
+  - GameManager
   layers:
   - Default
   - TransparentFX
