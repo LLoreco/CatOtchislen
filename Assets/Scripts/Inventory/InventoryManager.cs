@@ -23,6 +23,10 @@ public class InventoryManager : MonoBehaviour
     }
     private void LoadInventory()
     {
+        if (inventoryCanvas == null)
+        {
+            inventoryCanvas = GameObject.FindGameObjectWithTag("InventoryCanvas");
+        }
         if (PlayerPrefs.HasKey("InventoryData"))
         {
             string[] items = PlayerPrefs.GetString("InventoryData").Split(',');
@@ -33,6 +37,23 @@ public class InventoryManager : MonoBehaviour
                     if (itemName == inventoryItem.name)
                     {
                         inventoryItem.SetActive(true);
+                    }
+                }
+            }
+        }
+    }
+    public void DeleteInventory()
+    {
+        if (PlayerPrefs.HasKey("InventoryData"))
+        {
+            string[] items = PlayerPrefs.GetString("InventoryData").Split(',');
+            foreach (var itemName in items)
+            {
+                foreach (var inventoryItem in inventoryItems)
+                {
+                    if (itemName == inventoryItem.name)
+                    {
+                        inventoryItem.SetActive(false);
                     }
                 }
             }

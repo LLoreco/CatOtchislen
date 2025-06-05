@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.RightAlt))
         {
             PlayerPrefs.DeleteKey("FoundObjects");
+            GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>().DeleteInventory();
+            PlayerPrefs.DeleteKey("InventoryData");
             PlayerPrefs.Save();
         }
     }
