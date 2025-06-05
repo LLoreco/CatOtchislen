@@ -10,8 +10,10 @@ public class WinGame : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Flag"))
         {
+            string currentPlatformer = PlayerPrefs.HasKey("CompletedPlatformers") ?
+            PlayerPrefs.GetString("CompletedPlatformers") : "";
             GetComponent<PlayerSoundManager>().PlayWinSound();
-            PlayerPrefs.SetString("CompletedPlatformers", SceneManager.GetActiveScene().name + ",");
+            PlayerPrefs.SetString("CompletedPlatformers", currentPlatformer + SceneManager.GetActiveScene().name + ",");
             PlayerPrefs.Save();
             StartCoroutine(ShowWinGame());
         }
