@@ -19,4 +19,16 @@ public class UIActionsInRoom : MonoBehaviour
         _isInventoryOpened = !_isInventoryOpened;
         GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>().ToggleInventory(_isInventoryOpened);
     }
+    public void GoToPlatformer()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void GoToNextRoom()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+    }
+    public void GoBackRoom()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+    }
 }

@@ -11,6 +11,8 @@ public class WinGame : MonoBehaviour
         if (collision.gameObject.CompareTag("Flag"))
         {
             GetComponent<PlayerSoundManager>().PlayWinSound();
+            PlayerPrefs.SetString("CompletedPlatformers", SceneManager.GetActiveScene().name + ",");
+            PlayerPrefs.Save();
             StartCoroutine(ShowWinGame());
         }
     }
