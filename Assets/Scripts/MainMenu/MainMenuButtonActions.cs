@@ -7,11 +7,12 @@ public class MainMenuButtonActions : MonoBehaviour
 {
     public void StartGame()
     {
+        PlayerPrefs.DeleteAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void ContinueGame()
     {
-        print("Игра продолжилась");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void QuitGame()
     {
