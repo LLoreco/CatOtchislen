@@ -23,7 +23,6 @@ public class Counter : MonoBehaviour
 
     private void Awake()
     {
-
         string currentScene = SceneManager.GetActiveScene().name;
         if (string.IsNullOrEmpty(_previousScene))
         {

@@ -8,6 +8,7 @@ public class ButtonChoiseDialogue : MonoBehaviour
 {
     [SerializeField] private GameObject parent;
     [SerializeField] private GameObject screen;
+    [SerializeField] private GameObject correctImage;
     public void CheckButton(bool isTrue)
     {
         OnOffButtons onOff = parent.GetComponent<OnOffButtons>();
@@ -18,13 +19,16 @@ public class ButtonChoiseDialogue : MonoBehaviour
             if (onOff.itemSprites != null)
             {
                 onOff.itemSprites.GetComponent<Button>().enabled = false;
+                onOff.DisableClicks();
+                //GameObject.FindGameObjectWithTag("InventoryManager").GetComponent<InventoryManager>().
             }
+            EnableClicks(onOff);
+            StartCoroutine(ShowImage());
         }
         else
         {
             Debug.Log("Неверная кнопка");
         }
-        EnableClicks(onOff);
         screen.SetActive(false);
     }
     private void EnableClicks(OnOffButtons onOff)
@@ -34,5 +38,12 @@ public class ButtonChoiseDialogue : MonoBehaviour
             item.GetComponent<Button>().enabled = true;
             item.GetComponent<Animator>().enabled = true;
         }
+    }
+    IEnumerator ShowImage()
+    {
+        correctImage.SetActive(true);
+        yield return new WaitForSeconds(4);
+        correctImage.SetActive(false);
+        
     }
 }
