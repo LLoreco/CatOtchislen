@@ -29,4 +29,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Rooms/Bedroom.unity
     guid: 50a36c55146789e40824db5e1d5e6bd3
+  - enabled: 1
+    path: Assets/Scenes/Exam.unity
+    guid: e9cff951895d405498932c250072e51c
+  - enabled: 1
+    path: Assets/Scenes/BadEnding.unity
+    guid: d8f8c82dcc7caa949b81142955fcebe0
+  - enabled: 1
+    path: Assets/Scenes/GoodEnding.unity
+    guid: e84c9392d8ee9a340ac93f0c32732fc0
   m_configObjects: {}
