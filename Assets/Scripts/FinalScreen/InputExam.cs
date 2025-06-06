@@ -63,7 +63,7 @@ public class InputExam : MonoBehaviour
         if (PlayerPrefs.HasKey("InventoryData"))
         {
             string[] items = PlayerPrefs.GetString("InventoryData").Split(',');
-            if (items.Length == 10)
+            if (items.Length == 11)
             {
                 return true;
             }
